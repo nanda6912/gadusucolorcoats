@@ -1,51 +1,51 @@
 // Vercel Serverless Function for Google Sheets Integration
-// This replaces the local proxy server for production deployment
+// This replaces the need for a separate proxy server
 
-export default async function handler(req, res) {
-  // Add CORS headers for all requests
+const fetch = require('node-fetch');
+
+module.exports = async (req, res) => {
+  // Enable CORS for all origins
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-
+  
+  // Handle preflight requests
   if (req.method === 'OPTIONS') {
-    return res.status(200).end();
+    res.status(200).end();
+    return;
   }
-
+  
   if (req.method !== 'POST') {
-    return res.status(405).json({ 
-      success: false, 
-      error: 'Method not allowed. Use POST.' 
-    });
+    res.status(405).json({ error: 'Method not allowed' });
+    return;
   }
-
+  
   try {
-    console.log('Received request:', req.body);
-    
     const googleAppsScriptUrl = 'https://script.google.com/macros/s/AKfycbzQRupmxXlzidEdRuSHFsNQLocKfQxEWjWAb0Q-sn-qq2XWbG1FioAEEFAdY6FTKSE/exec';
+    
+    console.log('Forwarding request to Google Apps Script:', req.body);
     
     const response = await fetch(googleAppsScriptUrl, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
+      'User-Agent': 'Vercel-Proxy/1.0'
       },
       body: JSON.stringify(req.body)
     });
-
-    if (!response.ok) {
-      throw new Error(`Google Apps Script error: ${response.status} ${response.statusText}`);
-    }
-
+    
     const data = await response.text();
     console.log('Google Apps Script response:', data);
     
-    // Return the exact response from Google Apps Script
-    res.status(200).setHeader('Content-Type', 'text/plain').send(data);
+    // Forward the response from Google Apps Script
+    res.status(response.status).send(data);
     
   } catch (error) {
-    console.error('Proxy function error:', error);
-    res.status(500).json({ 
-      success: false, 
-      error: error.message 
+    console.error('Proxy error:', error);
+    res.status(500).json({
+      success: false,
+      error: error.message,
+      message: 'Failed to forward request to Google Apps Script'
     });
   }
-}
+};

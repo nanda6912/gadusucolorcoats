@@ -1,25 +1,14 @@
 {
   "version": 2,
-  "name": "gadusu-color-coats",
-  "builds": [
-    {
-      "src": "package.json",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/api/$1"
-    },
-    {
-      "src": "/(.*)",
-      "dest": "/$1"
-    }
-  ],
   "functions": {
     "api/google-sheets.js": {
       "maxDuration": 10
     }
-  }
+  },
+  "routes": [
+    {
+      "src": "/api/google-sheets",
+      "dest": "/api/google-sheets.js"
+    }
+  ]
 }
