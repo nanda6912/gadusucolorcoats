@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GADUSU EXPERT COLOR COATS offers professional interior, exterior, and commercial painting services with 21+ years of experience in Telangana. Quality workmanship guaranteed.">
+    <meta name="keywords" content="painting services, interior painting, exterior painting, commercial painting, house painting, Telangana, professional painters, GADUSU">
+    <meta name="author" content="GADUSU EXPERT COLOR COATS">
+    <meta property="og:title" content="GADUSU EXPERT COLOR COATS - Professional Painting Services">
+    <meta property="og:description" content="Professional painting services with 21+ years of experience. Interior, exterior, and commercial painting solutions.">
+    <meta property="og:type" content="website">
+    <title>GADUSU EXPERT COLOR COATS - Professional Painting Services in Telangana</title>
+    
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cambria:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <!-- Google Sheets Configuration -->
+    <script src="google-sheets-config.js?v=2.0"></script>
+    
+    <!-- Preload critical resources -->
+    <link rel="preload" href="images/back.jpg" as="image">
+    <link rel="preload" href="images/int1.jpg" as="image">
+</head>
+<body>
+    <!-- Skip to main content for accessibility -->
+    <a href="#main" class="skip-link">Skip to main content</a>
+    
+    <!-- Header with Navigation -->
+    <header class="header" role="banner">
+        <nav class="navbar" role="navigation" aria-label="Main navigation">
+            <div class="nav-container">
+                <div class="logo">
+                    <h1>GADUSU EXPERT COLOR COATS</h1>
+                </div>
+                <ul class="nav-menu" role="menubar">
+                    <li role="none"><a href="#home" role="menuitem" aria-current="page">Home</a></li>
+                    <li role="none"><a href="#services" role="menuitem">Services</a></li>
+                    <li role="none"><a href="#about" role="menuitem">About</a></li>
+                    <li role="none"><a href="#gallery" role="menuitem">Gallery</a></li>
+                    <li role="none"><a href="#contact" role="menuitem">Contact</a></li>
+                    <li role="none"><a href="#appointment" role="menuitem">Book Appointment</a></li>
+                </ul>
+                <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-menu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main" role="main">
+
+    <!-- Hero Section -->
+    <section id="home" class="hero" aria-labelledby="hero-heading">
+        <div class="hero-background">
+            <img src="images/back.jpg" alt="Professional painting services background" class="hero-image" loading="eager">
+            <div class="hero-overlay" aria-hidden="true"></div>
+        </div>
+        <div class="hero-content">
+            <h1 id="hero-heading">Professional Painting Services</h1>
+            <p>Transform your space with expert color solutions.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary" aria-label="View our painting services">Our Services</a>
+                <a href="#appointment" class="btn btn-secondary" aria-label="Book an appointment now">Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services" aria-labelledby="services-heading">
+        <div class="container">
+            <h2 id="services-heading" class="section-title">Our Professional Services</h2>
+            <div class="services-grid">
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">
+                        <i class="fas fa-home"></i>
+                    </div>
+                    <h3>Interior Painting</h3>
+                    <p>Professional interior painting services for residential buildings. Transform your living spaces with quality finishes and attention to detail.</p>
+                    <button class="gallery-toggle-btn" onclick="document.getElementById('interior-gallery-section').scrollIntoView({behavior: 'smooth'})">
+                        <i class="fas fa-images" aria-hidden="true"></i> View Our Work
+                    </button>
+                    <div id="interior-gallery" class="service-gallery" style="display: none;" aria-hidden="true">
+                        <div class="gallery-grid">
+                            <img src="images/int1.jpg" alt="Interior painting project 1" class="gallery-image" loading="lazy">
+                            <img src="images/int2.jpg" alt="Interior painting project 2" class="gallery-image" loading="lazy">
+                            <img src="images/int3.jpg" alt="Interior painting project 3" class="gallery-image" loading="lazy">
+                            <img src="images/int4.jpg" alt="Interior painting project 4" class="gallery-image" loading="lazy">
+                            <img src="images/int5.jpg" alt="Interior painting project 5" class="gallery-image" loading="lazy">
+                            <img src="images/int6.jpg" alt="Interior painting project 6" class="gallery-image" loading="lazy">
+                        </div>
+                        <div class="image-caption">
+                            <p>Our interior painting projects - Beautiful wall designs with artistic decals and finishes</p>
+                        </div>
+                    </div>
+                </article>
+                
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">
+                        <i class="fas fa-building"></i>
+                    </div>
+                    <h3>Exterior Painting</h3>
+                    <p>Expert exterior painting solutions that protect and enhance your building's appearance with durable, weather-resistant finishes.</p>
+                    <button class="gallery-toggle-btn" onclick="document.getElementById('exterior-gallery-section').scrollIntoView({behavior: 'smooth'})">
+                        <i class="fas fa-images" aria-hidden="true"></i> View Our Work
+                    </button>
+                </article>
+                
+                <article class="service-card">
+                    <div class="service-icon" aria-hidden="true">
+                        <i class="fas fa-store"></i>
+                    </div>
+                    <h3>Commercial Spaces</h3>
+                    <p>Specialized painting services for commercial properties, offices, retail spaces, and business establishments with minimal disruption.</p>
+                    <button class="gallery-toggle-btn" onclick="document.getElementById('commercial-gallery-section').scrollIntoView({behavior: 'smooth'})">
+                        <i class="fas fa-images" aria-hidden="true"></i> View Our Work
+                    </button>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about" aria-labelledby="about-heading">
+        <div class="container">
+            <div class="about-content">
+                <div class="about-text">
+                    <h2 id="about-heading">About GADUSU EXPERT COLOR COATS</h2>
+                    <p>With over <strong>21 years of experience</strong> in the painting industry, we have established ourselves as a trusted name in professional painting services.</p>
+                    <p>Our commitment to <strong>quality workmanship</strong> and <strong>timely completion</strong> has earned us numerous satisfied clients across residential and commercial projects.</p>
+                    <p>We use premium quality materials and modern techniques to ensure lasting results that exceed your expectations.</p>
+                    <div class="about-highlights">
+                        <div class="highlight">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <span>21+ Years Experience</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <span>Quality Work Guaranteed</span>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-check-circle" aria-hidden="true"></i>
+                            <span>On-Time Delivery</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section id="gallery" class="gallery" aria-labelledby="gallery-heading">
+        <div class="container">
+            <h2 id="gallery-heading" class="section-title">Our Work Gallery</h2>
+            
+            <!-- Interior Gallery -->
+            <div id="interior-gallery-section" class="gallery-subsection">
+                <h3 class="subsection-title">Interior Painting Projects</h3>
+                <div class="gallery-grid">
+                    <img src="images/int1.jpg" alt="Interior painting project 1" class="gallery-image" loading="lazy" onclick="openModal('images/int1.jpg')">
+                    <img src="images/int2.jpg" alt="Interior painting project 2" class="gallery-image" loading="lazy" onclick="openModal('images/int2.jpg')">
+                    <img src="images/int3.jpg" alt="Interior painting project 3" class="gallery-image" loading="lazy" onclick="openModal('images/int3.jpg')">
+                    <img src="images/int4.jpg" alt="Interior painting project 4" class="gallery-image" loading="lazy" onclick="openModal('images/int4.jpg')">
+                    <img src="images/int5.jpg" alt="Interior painting project 5" class="gallery-image" loading="lazy" onclick="openModal('images/int5.jpg')">
+                    <img src="images/int6.jpg" alt="Interior painting project 6" class="gallery-image" loading="lazy" onclick="openModal('images/int6.jpg')">
+                </div>
+            </div>
+            
+            <!-- Exterior Gallery -->
+            <div id="exterior-gallery-section" class="gallery-subsection">
+                <h3 class="subsection-title">Exterior Painting Projects</h3>
+                <div class="gallery-grid">
+                    <img src="images/ext1.jpg" alt="Exterior painting project 1" class="gallery-image" loading="lazy" onclick="openModal('images/ext1.jpg')">
+                    <img src="images/ext2.jpg" alt="Exterior painting project 2" class="gallery-image" loading="lazy" onclick="openModal('images/ext2.jpg')">
+                    <img src="images/ext3.jpg" alt="Exterior painting project 3" class="gallery-image" loading="lazy" onclick="openModal('images/ext3.jpg')">
+                    <img src="images/ext4.jpg" alt="Exterior painting project 4" class="gallery-image" loading="lazy" onclick="openModal('images/ext4.jpg')">
+                    <img src="images/ext5.jpg" alt="Exterior painting project 5" class="gallery-image" loading="lazy" onclick="openModal('images/ext5.jpg')">
+                    <img src="images/ext6.jpg" alt="Exterior painting project 6" class="gallery-image" loading="lazy" onclick="openModal('images/ext6.jpg')">
+                </div>
+            </div>
+            
+            <!-- Commercial Gallery -->
+            <div id="commercial-gallery-section" class="gallery-subsection">
+                <h3 class="subsection-title">Commercial Spaces Projects</h3>
+                <div class="gallery-grid">
+                    <img src="images/com1.jpg" alt="Commercial painting project 1" class="gallery-image" loading="lazy" onclick="openModal('images/com1.jpg')">
+                    <img src="images/com2.jpg" alt="Commercial painting project 2" class="gallery-image" loading="lazy" onclick="openModal('images/com2.jpg')">
+                    <img src="images/com3.jpg" alt="Commercial painting project 3" class="gallery-image" loading="lazy" onclick="openModal('images/com3.jpg')">
+                    <img src="images/com4.jpg" alt="Commercial painting project 4" class="gallery-image" loading="lazy" onclick="openModal('images/com4.jpg')">
+                    <img src="images/com5.jpg" alt="Commercial painting project 5" class="gallery-image" loading="lazy" onclick="openModal('images/com5.jpg')">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact" aria-labelledby="contact-heading">
+        <div class="container">
+            <h2 id="contact-heading" class="section-title">Contact Us</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-user" aria-hidden="true"></i>
+                        <div>
+                            <h3>VENKATESH GADUSU</h3>
+                            <p>Proprietor</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-envelope" aria-hidden="true"></i>
+                        <div>
+                            <h3>Email</h3>
+                            <p><a href="mailto:venkateshgadusu9@gmail.com" class="email-link" aria-label="Send email to venkateshgadusu9@gmail.com">venkateshgadusu9@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-phone" aria-hidden="true"></i>
+                        <div>
+                            <h3>Phone</h3>
+                            <p><a href="tel:+919032581154" class="phone-link" aria-label="Call +91 9032581154">+91 9032581154</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                        <div>
+                            <h3>Office Location</h3>
+                            <p>Prashanthi Hills, St. 10, Phase 5, Self Finance Colony, Ranga Reddy, TELANGANA</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="contact-map">
+                    <div id="map">
+                        <iframe 
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15227.658849626665!2d78.5194624!3d17.3202574!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bcba26865f71c6d:0xbfb7d3b2db683872!2sPrashanthi+Hills!5e0!3m2!1sen!2sin!4v1700000000"
+                            width="100%" 
+                            height="300" 
+                            style="border:0;" 
+                            allowfullscreen="" 
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            title="Google Maps - Prashanthi Hills Location">
+                        </iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section id="appointment" class="appointment" aria-labelledby="appointment-heading">
+        <div class="container">
+            <h2 id="appointment-heading" class="section-title">Book an Appointment</h2>
+            <div class="appointment-form">
+                <form id="appointmentForm" novalidate>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="name">Full Name *</label>
+                            <input type="text" id="name" name="name" required aria-required="true" aria-describedby="name-error">
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" name="phone" required aria-required="true" aria-describedby="phone-error">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="email">Email Address</label>
+                            <input type="email" id="email" name="email" aria-describedby="email-error">
+                        </div>
+                        <div class="form-group">
+                            <label for="service">Service Type *</label>
+                            <select id="service" name="service" required aria-required="true" aria-describedby="service-error">
+                                <option value="">Select a service</option>
+                                <option value="interior">Interior Painting</option>
+                                <option value="exterior">Exterior Painting</option>
+                                <option value="commercial">Commercial Spaces</option>
+                                <option value="all">All Services</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="location">Location/Address *</label>
+                        <input type="text" id="location" name="location" placeholder="Your area or complete address" required aria-required="true" aria-describedby="location-error">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Additional Details</label>
+                        <textarea id="message" name="message" rows="4" placeholder="Tell us more about your painting requirements..." aria-describedby="message-error"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="date">Preferred Date</label>
+                        <input type="date" id="date" name="date" aria-describedby="date-error">
+                    </div>
+                    <button type="submit" class="btn btn-primary" aria-label="Submit appointment booking">Book Appointment</button>
+                </form>
+                <div id="formMessage" class="form-message" role="alert" aria-live="polite"></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Close main content -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>GADUSU EXPERT COLOR COATS</h3>
+                    <p>Professional painting services with 21+ years of experience in delivering quality results on time.</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#gallery">Gallery</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact Info</h3>
+                    <p><i class="fas fa-envelope" aria-hidden="true"></i> <a href="mailto:venkateshgadusu9@gmail.com">venkateshgadusu9@gmail.com</a></p>
+                    <p><i class="fas fa-phone" aria-hidden="true"></i> <a href="tel:+919032581154">+91 9032581154</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 GADUSU EXPERT COLOR COATS. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js?v=2.1"></script>
+</body>
+</html>
+
+<!-- Image Modal -->
+<div id="imageModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <span class="close-modal" onclick="closeModal()" aria-label="Close modal">&times;</span>
+    <button class="modal-prev" onclick="changeImage(-1)" aria-label="Previous image">&#10094;</button>
+    <img class="modal-content" id="modalImage" alt="Enlarged gallery image">
+    <button class="modal-next" onclick="changeImage(1)" aria-label="Next image">&#10095;</button>
+    <div class="modal-counter" id="modalCounter" aria-live="polite"></div>
+</div>
