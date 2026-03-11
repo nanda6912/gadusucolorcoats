@@ -1,7 +1,10 @@
-// Google Sheets Configuration using Proxy Server
+// Google Sheets Configuration for Vercel Deployment
 const GOOGLE_SHEETS_CONFIG = {
-    // Use local proxy server to bypass CORS issues
-    PROXY_URL: 'http://localhost:3001/api/google-sheets',
+    // Use Vercel serverless function for production
+    PROXY_URL: '/api/google-sheets',
+    
+    // Fallback for local development
+    LOCAL_PROXY_URL: 'http://localhost:3001/api/google-sheets',
     
     // Original Google Apps Script URL (for reference)
     WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbzQRupmxXlzidEdRuSHFsNQLocKfQxEWjWAb0Q-sn-qq2XWbG1FioAEEFAdY6FTKSE/exec',
@@ -22,13 +25,19 @@ const GOOGLE_SHEETS_CONFIG = {
     }
 };
 
-// Function to append data to Google Sheets via Proxy Server
+// Function to append data to Google Sheets (works on both local and Vercel)
 async function appendToGoogleSheet(formData) {
     try {
-        console.log('Sending data to proxy server:', formData);
+        console.log('Sending data:', formData);
         
-        // Make the API request to proxy server
-        const response = await fetch(GOOGLE_SHEETS_CONFIG.PROXY_URL, {
+        // Detect if we're in production (Vercel) or development
+        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+        const apiUrl = isProduction ? GOOGLE_SHEETS_CONFIG.PROXY_URL : GOOGLE_SHEETS_CONFIG.LOCAL_PROXY_URL;
+        
+        console.log('Using API URL:', apiUrl);
+        
+        // Make the API request
+        const response = await fetch(apiUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -36,20 +45,20 @@ async function appendToGoogleSheet(formData) {
             body: JSON.stringify(formData)
         });
         
-        console.log('Proxy server response status:', response.status);
+        console.log('Response status:', response.status);
         
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('Proxy server error response:', errorText);
-            throw new Error(`Proxy server error: ${response.status} - ${errorText}`);
+            console.error('API error response:', errorText);
+            throw new Error(`API error: ${response.status} - ${errorText}`);
         }
         
         const result = await response.text();
-        console.log('Data successfully sent via proxy:', result);
+        console.log('Data successfully sent:', result);
         return { success: true, data: result };
         
     } catch (error) {
-        console.error('Error appending to Google Sheets via proxy:', error);
+        console.error('Error appending to Google Sheets:', error);
         return { success: false, error: error.message };
     }
 }
