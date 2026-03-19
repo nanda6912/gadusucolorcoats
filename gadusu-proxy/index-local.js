@@ -6,7 +6,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 // For local testing, require environment variable only
-const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
+const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxFOHerwrRV1hDWgy8QKp4Eem7x04BaeCTbED4ubmk7m9yUhakQrf9DcaSfzWgyOdF3/exec';
 
 // Middleware
 app.use(cors());
