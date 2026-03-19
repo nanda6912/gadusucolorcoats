@@ -2,9 +2,9 @@
   "name": "gadusu-proxy",
   "version": "1.0.0",
   "description": "Proxy server for GADUSU website Google Sheets integration",
-  "main": "vercel-proxy-server.js",
+  "main": "index.js",
   "scripts": {
-    "start": "node vercel-proxy-server.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "express": "^4.18.2",
@@ -13,5 +13,8 @@
   },
   "engines": {
     "node": ">=14.0.0"
-  }
+  },
+  "keywords": ["node", "express", "proxy", "cors"],
+  "author": "GADUSU EXPERT COLOR COATS",
+  "license": "UNLICENSED"
 }
