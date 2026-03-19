@@ -1,7 +1,7 @@
 // Google Apps Script with CORS Support for GADUSU Website
 // Copy this code to your Google Apps Script editor
 
-// Current deployment URL: https://script.google.com/macros/s/AKfycbxFOHerwrRV1hDWgy8QKp4Eem7x04BaeCTbED4ubmk7m9yUhakQrf9DcaSfzWgyOdF3/exec
+// Current deployment URL: https://script.google.com/macros/s/AKfycbytxqnNPlbL8xfhM7jbyKS-szFJh4MYBXvEiz7dmOO29_Ft2jk2tuVp8jzpjLIQGAfY/exec
 
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({

@@ -7,7 +7,7 @@ const GOOGLE_SHEETS_CONFIG = {
     PROXY_API_KEY: process.env.GOOGLE_SHEETS_PROXY_API_KEY || '',
     
     // Current Google Apps Script deployment URL
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxFOHerwrRV1hDWgy8QKp4Eem7x04BaeCTbED4ubmk7m9yUhakQrf9DcaSfzWgyOdF3/exec',
+    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbytxqnNPlbL8xfhM7jbyKS-szFJh4MYBXvEiz7dmOO29_Ft2jk2tuVp8jzpjLIQGAfY/exec',
     
     // Your Google Sheet ID (for reference)
     SPREADSHEET_ID: '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4',
