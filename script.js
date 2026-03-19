@@ -328,16 +328,16 @@ function toggleGallery(galleryId) {
 // Modal functions
 let currentImageIndex = 0;
 const interiorImages = [
-    'images/interior-1.jpg', 'images/interior-2.jpg', 'images/interior-3.jpg', 'images/interior-4.jpg',
-    'images/interior-5.jpg', 'images/interior-6.jpg'
+    'images/int1.jpg', 'images/int2.jpg', 'images/int3.jpg', 'images/int4.jpg',
+    'images/int5.jpg', 'images/int6.jpg'
 ];
 const exteriorImages = [
-    'images/exterior-1.jpg', 'images/exterior-2.jpg', 'images/exterior-3.jpg', 'images/exterior-4.jpg',
-    'images/exterior-5.jpg', 'images/exterior-6.jpg'
+    'images/ext1.jpg', 'images/ext2.jpg', 'images/ext3.jpg', 'images/ext4.jpg',
+    'images/ext5.jpg', 'images/ext6.jpg'
 ];
 const commercialImages = [
-    'images/commercial-1.jpg', 'images/commercial-2.jpg', 'images/commercial-3.jpg', 'images/commercial-4.jpg',
-    'images/commercial-5.jpg'
+    'images/commercial1.jpg', 'images/commercial2.jpg', 'images/commercial3.jpg', 'images/commercial4.jpg',
+    'images/commercial5.jpg'
 ];
 const allImages = [...interiorImages, ...exteriorImages, ...commercialImages];
 
