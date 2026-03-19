@@ -37,7 +37,16 @@ function doPost(e) {
     }
     
     const sheet = spreadsheet.getSheetByName('Sheet1');
-    const timestamp = new Date();
+    if (sheet === null) {
+      const errorResponse = {
+        success: false,
+        error: "Sheet 'Sheet1' not found. Please create it first."
+      };
+      const errorOutput = ContentService.createTextOutput();
+      errorOutput.setMimeType(ContentService.MimeType.JSON);
+      errorOutput.setContent(JSON.stringify(errorResponse));
+      return errorOutput;
+    }
     
     // Ensure headers are set up
     if (sheet.getRange('A1').getValue() !== 'Timestamp') {
@@ -61,11 +70,11 @@ function doPost(e) {
         data.date || ''                            // Column H: Preferred Date
       ]);
       
-      // Format the timestamp column for better readability using the returned range
-      const newRow = range.getRow();
-      if (newRow) {
-        newRow.getCell(1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
-      }
+      // Get row number while lock is held (prevents race conditions)
+      const capturedRowNumber = sheet.getLastRow();
+      
+      // Format the timestamp column for better readability using captured row number
+      sheet.getRange(capturedRowNumber, 1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
       
     } finally {
       lock.releaseLock();
