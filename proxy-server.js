@@ -13,7 +13,7 @@ app.use(express.json());
 // Proxy endpoint for Google Apps Script
 app.post('/api/google-sheets', async (req, res) => {
     try {
-        const googleAppsScriptUrl = 'https://script.google.com/macros/s/AKfycbzQRupmxXlzidEdRuSHFsNQLocKfQxEWjWAb0Q-sn-qq2XWbG1FioAEEFAdY6FTKSE/exec';
+        const googleAppsScriptUrl = 'https://script.google.com/macros/s/AKfycbwCzC8ifOgArKSB7yx2L0IfbdiN0qNf2YE3iyVnjf7RyY_OVaWfnqrLFU1_DfoENOnT/exec';
         
         console.log('Proxying request to Google Apps Script:', req.body);
         

@@ -110,7 +110,7 @@ The appointment form automatically syncs data to Google Sheets via a proxy serve
 // Google Sheets Configuration
 const GOOGLE_SHEETS_CONFIG = {
     PROXY_URL: 'http://localhost:3001/api/google-sheets',
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbzQRupmxXlzidEdRuSHFsNQLocKfQxEWjWAb0Q-sn-qq2XWbG1FioAEEFAdY6FTKSE/exec',
+    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbwCzC8ifOgArKSB7yx2L0IfbdiN0qNf2YE3iyVnjf7RyY_OVaWfnqrLFU1_DfoENOnT/exec',
     SPREADSHEET_ID: '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4'
 };
 ```
@@ -129,10 +129,20 @@ npm start        # Starts website on port 8000
 
 ### Google Sheet Setup
 Your Google Sheet should have these headers in Row 1:
-- **A1: Timestamp** | **E1: Service**
-- **B1: Name** | **F1: Location**  
-- **C1: Phone** | **G1: Message**
-- **D1: Email** | **H1: Preferred Date**
+- **A1: Timestamp** | **E1: Service Type**
+- **B1: Full Name** | **F1: Location/Address**  
+- **C1: Phone Number** | **G1: Additional Details**
+- **D1: Email Address** | **H1: Preferred Date**
+
+### Form Field Mapping
+The website form sends these exact field names:
+- **name** → Full Name (Column B)
+- **phone** → Phone Number (Column C)
+- **email** → Email Address (Column D)
+- **service** → Service Type (Column E)
+- **location** → Location/Address (Column F)
+- **message** → Additional Details (Column G)
+- **date** → Preferred Date (Column H)
 
 ### Gallery Sections
 The gallery is organized into three subsections:

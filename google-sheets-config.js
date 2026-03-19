@@ -1,13 +1,10 @@
-// Google Sheets Configuration for Vercel Deployment
+// Google Sheets Configuration using Proxy Server
 const GOOGLE_SHEETS_CONFIG = {
-    // Use Vercel serverless function for production
-    PROXY_URL: '/api/google-sheets',
-    
-    // Fallback for local development
-    LOCAL_PROXY_URL: 'http://localhost:3001/api/google-sheets',
+    // Use local proxy server to bypass CORS issues
+    PROXY_URL: 'http://localhost:3001/api/google-sheets',
     
     // Original Google Apps Script URL (for reference)
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbzQRupmxXlzidEdRuSHFsNQLocKfQxEWjWAb0Q-sn-qq2XWbG1FioAEEFAdY6FTKSE/exec',
+    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbwCzC8ifOgArKSB7yx2L0IfbdiN0qNf2YE3iyVnjf7RyY_OVaWfnqrLFU1_DfoENOnT/exec',
     
     // Your Google Sheet ID (for reference)
     SPREADSHEET_ID: '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4',
@@ -22,22 +19,39 @@ const GOOGLE_SHEETS_CONFIG = {
         LOCATION: 'F',
         MESSAGE: 'G',
         DATE: 'H'
-    }
+    },
+    
+    // Form field names (exact match with HTML form)
+    FORM_FIELDS: {
+        name: 'name',
+        phone: 'phone', 
+        email: 'email',
+        service: 'service',
+        location: 'location',
+        message: 'message',
+        date: 'date'
+    },
+    
+    // Google Sheet column headers
+    SHEET_HEADERS: [
+        'Timestamp',
+        'Full Name',
+        'Phone Number', 
+        'Email Address',
+        'Service Type',
+        'Location/Address',
+        'Additional Details',
+        'Preferred Date'
+    ]
 };
 
-// Function to append data to Google Sheets (works on both local and Vercel)
+// Function to append data to Google Sheets via Proxy Server
 async function appendToGoogleSheet(formData) {
     try {
-        console.log('Sending data:', formData);
+        console.log('Sending data to proxy server:', formData);
         
-        // Detect if we're in production (Vercel) or development
-        const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
-        const apiUrl = isProduction ? GOOGLE_SHEETS_CONFIG.PROXY_URL : GOOGLE_SHEETS_CONFIG.LOCAL_PROXY_URL;
-        
-        console.log('Using API URL:', apiUrl);
-        
-        // Make the API request
-        const response = await fetch(apiUrl, {
+        // Make the API request to proxy server
+        const response = await fetch(GOOGLE_SHEETS_CONFIG.PROXY_URL, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -45,20 +59,20 @@ async function appendToGoogleSheet(formData) {
             body: JSON.stringify(formData)
         });
         
-        console.log('Response status:', response.status);
+        console.log('Proxy server response status:', response.status);
         
         if (!response.ok) {
             const errorText = await response.text();
-            console.error('API error response:', errorText);
-            throw new Error(`API error: ${response.status} - ${errorText}`);
+            console.error('Proxy server error response:', errorText);
+            throw new Error(`Proxy server error: ${response.status} - ${errorText}`);
         }
         
         const result = await response.text();
-        console.log('Data successfully sent:', result);
+        console.log('Data successfully sent via proxy:', result);
         return { success: true, data: result };
         
     } catch (error) {
-        console.error('Error appending to Google Sheets:', error);
+        console.error('Error appending to Google Sheets via proxy:', error);
         return { success: false, error: error.message };
     }
 }
