@@ -11,10 +11,5 @@
       "src": "/api/(.*)",
       "dest": "/vercel-proxy-server.js"
     }
-  ],
-  "functions": {
-    "vercel-proxy-server.js": {
-      "maxDuration": 10
-    }
-  }
+  ]
 }
