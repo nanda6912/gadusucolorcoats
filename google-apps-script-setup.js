@@ -55,11 +55,12 @@ function doPost(e) {
     
     // Use LockService to prevent race conditions
     const lock = LockService.getScriptLock();
+    let timestamp; // Declare in outer scope
     try {
       lock.waitLock(30000); // Wait up to 30 seconds
       
       // Create accurate timestamp with proper timezone
-      const timestamp = new Date();
+      timestamp = new Date();
       const formattedTimestamp = Utilities.formatDate(timestamp, Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
       
       // Append data to the sheet in the correct order

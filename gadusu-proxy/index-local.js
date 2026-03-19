@@ -5,8 +5,12 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// For local testing, use hardcoded URL (remove for production)
-const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxhFVgbs3OGIXe7i8azO6tazWWdbpeCRHD1Z7lhz02n8YOpQGPsrYzK-KbW3rC2J44e/exec';
+// For local testing, require environment variable only
+const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
+if (!googleAppsScriptUrl) {
+  console.error('ERROR: GOOGLE_APPS_SCRIPT_URL environment variable is required');
+  process.exit(1);
+}
 
 // Middleware
 app.use(cors());
@@ -39,44 +43,57 @@ app.post('/api/google-sheets', async (req, res) => {
             controller.abort();
         }, 10000); // 10 second timeout
         
-        const response = await fetch(googleAppsScriptUrl, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(req.body),
-            signal: controller.signal
-        });
-        
-        clearTimeout(timeoutId);
-        const data = await response.text();
-        console.log('Google Apps Script response received:', {
-            status: response.status,
-            success: response.ok,
-            timestamp: new Date().toISOString()
-        });
-        
-        // Send response back to client
-        res.status(response.status).send(data);
+        try {
+            const response = await fetch(googleAppsScriptUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(req.body),
+                signal: controller.signal
+            });
+            
+            clearTimeout(timeoutId);
+            const data = await response.text();
+            console.log('Google Apps Script response received:', {
+                status: response.status,
+                success: response.ok,
+                timestamp: new Date().toISOString()
+            });
+            
+            // Send response back to client
+            res.status(response.status).send(data);
+            
+        } catch (error) {
+            clearTimeout(timeoutId);
+            console.error('Proxy error:', {
+                error: error.message,
+                type: error.name,
+                timestamp: new Date().toISOString()
+            });
+            
+            if (error.name === 'AbortError') {
+                res.status(408).json({
+                    success: false,
+                    error: "Request timeout"
+                });
+            } else {
+                res.status(500).json({
+                    success: false,
+                    error: "Internal server error"
+                });
+            }
+        }
         
     } catch (error) {
-        console.error('Proxy error:', {
+        console.error('Proxy endpoint error:', {
             error: error.message,
-            type: error.name,
             timestamp: new Date().toISOString()
         });
-        
-        if (error.name === 'AbortError') {
-            res.status(408).json({
-                success: false,
-                error: "Request timeout"
-            });
-        } else {
-            res.status(500).json({
-                success: false,
-                error: "Internal server error"
-            });
-        }
+        res.status(500).json({
+            success: false,
+            error: "Internal server error"
+        });
     }
 });
 
@@ -94,12 +111,14 @@ app.all('*', (req, res) => {
     });
 });
 
-// Start server
-app.listen(PORT, () => {
-    console.log(`Proxy server running on port ${PORT}`);
-    console.log(`Google Sheets proxy endpoint: http://localhost:${PORT}/api/google-sheets`);
-    console.log(`Health check endpoint: http://localhost:${PORT}/api/health`);
-    console.log(`Google Apps Script URL: ${googleAppsScriptUrl ? 'CONFIGURED' : 'NOT CONFIGURED'}`);
-});
+// Start server only when run directly
+if (require.main === module) {
+    app.listen(PORT, () => {
+        console.log(`Proxy server running on port ${PORT}`);
+        console.log(`Google Sheets proxy endpoint: http://localhost:${PORT}/api/google-sheets`);
+        console.log(`Health check endpoint: http://localhost:${PORT}/api/health`);
+        console.log(`Google Apps Script URL: ${process.env.GOOGLE_APPS_SCRIPT_URL ? 'CONFIGURED' : 'NOT CONFIGURED'}`);
+    });
+}
 
 module.exports = app;

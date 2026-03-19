@@ -5,10 +5,10 @@ const fetch = require('node-fetch');
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Environment variable validation
-const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxhFVgbs3OGIXe7i8azO6tazWWdbpeCRHD1Z7lhz02n8YOpQGPsrYzK-KbW3rC2J44e/exec';
+// Environment variable validation - required only
+const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
 if (!googleAppsScriptUrl) {
-  console.error('ERROR: GOOGLE_APPS_SCRIPT_URL environment variable is not set');
+  console.error('ERROR: GOOGLE_APPS_SCRIPT_URL environment variable is required');
   process.exit(1);
 }
 
