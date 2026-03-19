@@ -5,11 +5,5 @@
       "src": "vercel-proxy-server.js",
       "use": "@vercel/node"
     }
-  ],
-  "routes": [
-    {
-      "src": "/api/(.*)",
-      "dest": "/vercel-proxy-server.js"
-    }
   ]
 }

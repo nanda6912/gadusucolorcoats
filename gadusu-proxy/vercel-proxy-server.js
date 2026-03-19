@@ -9,6 +9,15 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
+// Health check endpoint
+app.get('/api/health', (req, res) => {
+    res.json({ 
+        status: 'Proxy server is running', 
+        timestamp: new Date().toISOString(),
+        version: '1.0.0'
+    });
+});
+
 // Proxy endpoint for Google Apps Script
 app.post('/api/google-sheets', async (req, res) => {
     try {
@@ -39,15 +48,25 @@ app.post('/api/google-sheets', async (req, res) => {
     }
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'Proxy server is running', timestamp: new Date().toISOString() });
+// Handle all other routes for Vercel
+app.all('*', (req, res) => {
+    res.json({ 
+        message: 'GADUSU Proxy Server',
+        status: 'running',
+        endpoints: {
+            health: '/api/health',
+            googleSheets: '/api/google-sheets'
+        },
+        currentRoute: req.path,
+        method: req.method
+    });
 });
 
 // Start server
 app.listen(PORT, () => {
     console.log(`Proxy server running on port ${PORT}`);
     console.log(`Google Sheets proxy endpoint: http://localhost:${PORT}/api/google-sheets`);
+    console.log(`Health check endpoint: http://localhost:${PORT}/api/health`);
 });
 
 module.exports = app;
