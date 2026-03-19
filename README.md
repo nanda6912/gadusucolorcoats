@@ -11,7 +11,7 @@ A modern, responsive website for GADUSU EXPERT COLOR COATS, showcasing professio
 - **Interactive Gallery**: Modal viewer with swipe navigation
 - **WhatsApp Integration**: Direct appointment booking via WhatsApp
 - **Sticky Navigation**: Active section highlighting with smooth scrolling
-- **Contact Section**: Google Maps integration and contact information
+- **Contact Section**: Contact information and professional presentation
 - **SEO Optimized**: Semantic HTML5 with meta tags and accessibility
 
 ### Advanced Features
@@ -20,7 +20,7 @@ A modern, responsive website for GADUSU EXPERT COLOR COATS, showcasing professio
 - **Professional Animations**: Smooth transitions and scroll effects
 - **Form Validation**: Client-side validation with error handling
 - **Accessibility Features**: ARIA labels, keyboard navigation, skip links
-- **Performance Optimized**: Lazy loading and efficient CSS
+- **Performance Optimized**: Efficient CSS and optimized JavaScript
 
 ## 📱 Responsive Design
 
@@ -49,28 +49,28 @@ gadusu-website/
 ├── index.html              # Main HTML structure
 ├── styles.css              # Complete responsive styling
 ├── script.js               # Interactive functionality
-├── google-sheets-config.js # Google Sheets integration
-├── package-lock.json        # Dependency lock file
-├── images/                # Images directory
-│   ├── hero-bg.jpg        # Hero section background
-│   ├── interior-1.jpg     # Interior painting project 1
-│   ├── interior-2.jpg     # Interior painting project 2
-│   ├── interior-3.jpg     # Interior painting project 3
-│   ├── interior-4.jpg     # Interior painting project 4
-│   ├── interior-5.jpg     # Interior painting project 5
-│   ├── interior-6.jpg     # Interior painting project 6
-│   ├── exterior-1.jpg     # Exterior painting project 1
-│   ├── exterior-2.jpg     # Exterior painting project 2
-│   ├── exterior-3.jpg     # Exterior painting project 3
-│   ├── exterior-4.jpg     # Exterior painting project 4
-│   ├── exterior-5.jpg     # Exterior painting project 5
-│   ├── exterior-6.jpg     # Exterior painting project 6
+├── package.json            # Project configuration
+├── package-lock.json       # Dependency lock file
+├── images/                 # Images directory
+│   ├── hero-bg.jpg         # Hero section background
+│   ├── interior-1.jpg      # Interior painting project 1
+│   ├── interior-2.jpg      # Interior painting project 2
+│   ├── interior-3.jpg      # Interior painting project 3
+│   ├── interior-4.jpg      # Interior painting project 4
+│   ├── interior-5.jpg      # Interior painting project 5
+│   ├── interior-6.jpg      # Interior painting project 6
+│   ├── exterior-1.jpg      # Exterior painting project 1
+│   ├── exterior-2.jpg      # Exterior painting project 2
+│   ├── exterior-3.jpg      # Exterior painting project 3
+│   ├── exterior-4.jpg      # Exterior painting project 4
+│   ├── exterior-5.jpg      # Exterior painting project 5
+│   ├── exterior-6.jpg      # Exterior painting project 6
 │   ├── commercial-1.jpg    # Commercial painting project 1
 │   ├── commercial-2.jpg    # Commercial painting project 2
 │   ├── commercial-3.jpg    # Commercial painting project 3
 │   ├── commercial-4.jpg    # Commercial painting project 4
 │   └── commercial-5.jpg    # Commercial painting project 5
-└── README.md              # This file
+└── README.md               # This file
 ```
 
 ## 🚀 Quick Start
@@ -81,7 +81,13 @@ gadusu-website/
 # Navigate to the project directory
 cd gadusu-website
 
-# Start a local server (Python 3)
+# Install dependencies (optional, for enhanced development)
+npm install
+
+# Start a local server
+npm start
+
+# Or use Python 3
 python -m http.server 8000
 
 # Or use Node.js
@@ -113,46 +119,15 @@ const businessInfo = {
 };
 ```
 
-### Google Sheets Integration
-The appointment form automatically syncs data to Google Sheets via a proxy server:
-
-```javascript
-// Google Sheets Configuration
-const GOOGLE_SHEETS_CONFIG = {
-    PROXY_URL: 'http://localhost:3001/api/google-sheets',
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbwCzC8ifOgArKSB7yx2L0IfbdiN0qNf2YE3iyVnjf7RyY_OVaWfnqrLFU1_DfoENOnT/exec',
-    SPREADSHEET_ID: '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4'
-};
-```
-
-### Proxy Server Setup
-To run the complete setup with Google Sheets integration:
-
-```bash
-# Start both website and proxy server
-npm run dev-full
-
-# Or start individually:
-npm run proxy    # Starts proxy server on port 3001
-npm start        # Starts website on port 8000
-```
-
-### Google Sheet Setup
-Your Google Sheet should have these headers in Row 1:
-- **A1: Timestamp** | **E1: Service Type**
-- **B1: Full Name** | **F1: Location/Address**  
-- **C1: Phone Number** | **G1: Additional Details**
-- **D1: Email Address** | **H1: Preferred Date**
-
-### Form Field Mapping
-The website form sends these exact field names:
-- **name** → Full Name (Column B)
-- **phone** → Phone Number (Column C)
-- **email** → Email Address (Column D)
-- **service** → Service Type (Column E)
-- **location** → Location/Address (Column F)
-- **message** → Additional Details (Column G)
-- **date** → Preferred Date (Column H)
+### Form Fields
+The appointment form collects the following information:
+- **name**: Full name (required)
+- **phone**: Phone number (required)
+- **email**: Email address (optional)
+- **service**: Service type (interior/exterior/commercial)
+- **location**: Project location (required)
+- **message**: Additional details (optional)
+- **date**: Preferred date (optional)
 
 ### Gallery Sections
 The gallery is organized into three subsections:
@@ -213,7 +188,7 @@ The main color scheme uses:
 
 ### Adding New Images
 1. Add images to the `images/` folder
-2. Update the `interiorImages` array in `script.js`:
+2. Update the relevant image array in `script.js`:
 ```javascript
 const interiorImages = [
     'images/interior-1.jpg', 'images/interior-2.jpg', 'images/interior-3.jpg',
@@ -274,7 +249,7 @@ const interiorImages = [
 
 ### Optimization Techniques
 - **Lazy Loading**: Images load as needed
-- **Minified CSS**: Efficient styling
+- **Efficient CSS**: Clean, maintainable styles
 - **Optimized JavaScript**: Clean, performant code
 - **Image Compression**: Reduced file sizes
 - **CDN Ready**: External resources loaded from CDNs
@@ -286,7 +261,7 @@ const interiorImages = [
 
 ## 🔒 Security
 
-- **Form Validation**: Client-side and server-side validation
+- **Form Validation**: Client-side validation with proper error handling
 - **XSS Protection**: Input sanitization
 - **HTTPS Ready**: SSL certificate recommended
 - **No Sensitive Data**: No API keys or passwords in code
@@ -309,7 +284,7 @@ const interiorImages = [
 - **WhatsApp**: +91 9032581154
 - **Address**: Prashanthi Hills, St. 10, Phase 5, Self Finance Colony, Ranga Reddy, TELANGANA
 
-## � Maintenance
+## 🔧 Maintenance
 
 ### Regular Updates
 - **Content**: Update project images and descriptions
@@ -349,6 +324,6 @@ Quality Work • Timely Delivery • Customer Satisfaction
 
 📱 WhatsApp: +91 9032581154  
 📧 Email: venkateshgadusu9@gmail.com  
-� Website: [Your Domain]  
+🌐 Website: [Your Domain]  
 
 *Built with modern web technologies for optimal performance and user experience.*
