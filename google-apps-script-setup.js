@@ -1,6 +1,9 @@
 // Google Apps Script with CORS Support for GADUSU Website
 // Copy this code to your Google Apps Script editor
 
+// Spreadsheet ID constant
+const SPREADSHEET_ID = '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4';
+
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({
     success: true,
@@ -14,47 +17,66 @@ function doPost(e) {
     const output = ContentService.createTextOutput();
     output.setMimeType(ContentService.MimeType.JSON);
     
-    // Parse the incoming data
-    const data = JSON.parse(e.postData.contents);
-    const sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName('Sheet1');
-    const timestamp = new Date();
-    
-    // Ensure headers are set up
-    if (sheet === null) {
+    // Guard against missing post data
+    if (!e.postData || !e.postData.contents) {
       const errorResponse = {
         success: false,
-        error: "Sheet 'Sheet1' not found. Please create it first."
+        error: "No data received"
       };
       output.setContent(JSON.stringify(errorResponse));
       return output;
     }
     
+    // Parse the incoming data
+    const data = JSON.parse(e.postData.contents);
+    
+    // Get spreadsheet with fallback
+    let spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    if (!spreadsheet) {
+      spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    }
+    
+    const sheet = spreadsheet.getSheetByName('Sheet1');
+    const timestamp = new Date();
+    
+    // Ensure headers are set up
     if (sheet.getRange('A1').getValue() !== 'Timestamp') {
       setupHeadersOnSheet(sheet);
     }
     
-    // Append the data to the sheet in the correct order
-    sheet.appendRow([
-      timestamp.toISOString(),                    // Column A: Timestamp
-      data.name || '',                           // Column B: Full Name
-      data.phone || '',                          // Column C: Phone Number
-      data.email || '',                          // Column D: Email Address
-      data.service || '',                         // Column E: Service Type
-      data.location || '',                       // Column F: Location/Address
-      data.message || '',                        // Column G: Additional Details
-      data.date || ''                            // Column H: Preferred Date
-    ]);
-    
-    // Format the timestamp column for better readability
-    const lastRow = sheet.getLastRow();
-    sheet.getRange(lastRow, 1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+    // Use LockService to prevent race conditions
+    const lock = LockService.getScriptLock();
+    try {
+      lock.waitLock(30000); // Wait up to 30 seconds
+      
+      // Append data to the sheet in the correct order
+      const range = sheet.appendRow([
+        timestamp.toISOString(),                    // Column A: Timestamp
+        data.name || '',                           // Column B: Full Name
+        data.phone || '',                          // Column C: Phone Number
+        data.email || '',                          // Column D: Email Address
+        data.service || '',                         // Column E: Service Type
+        data.location || '',                       // Column F: Location/Address
+        data.message || '',                        // Column G: Additional Details
+        data.date || ''                            // Column H: Preferred Date
+      ]);
+      
+      // Format the timestamp column for better readability using the returned range
+      const newRow = range.getRow();
+      if (newRow) {
+        newRow.getCell(1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+      }
+      
+    } finally {
+      lock.releaseLock();
+    }
     
     // Create response
     const response = {
       success: true,
       message: "Appointment data saved successfully",
       timestamp: timestamp.toISOString(),
-      rowNumber: lastRow
+      rowNumber: sheet.getLastRow()
     };
     
     output.setContent(JSON.stringify(response));
