@@ -7,10 +7,6 @@ const PORT = process.env.PORT || 3001;
 
 // For local testing, require environment variable only
 const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
-if (!googleAppsScriptUrl) {
-  console.error('ERROR: GOOGLE_APPS_SCRIPT_URL environment variable is required');
-  process.exit(1);
-}
 
 // Middleware
 app.use(cors());
@@ -28,6 +24,14 @@ app.get('/api/health', (req, res) => {
 // Proxy endpoint for Google Apps Script
 app.post('/api/google-sheets', async (req, res) => {
     try {
+        // Validate environment variable at request time
+        if (!googleAppsScriptUrl) {
+            return res.status(500).json({
+                success: false,
+                error: "Google Apps Script URL not configured"
+            });
+        }
+        
         // Log safe metadata only (no sensitive data)
         console.log('Proxy request received:', {
             method: req.method,
@@ -113,6 +117,12 @@ app.all('*', (req, res) => {
 
 // Start server only when run directly
 if (require.main === module) {
+    // Validate environment variables at startup
+    if (!googleAppsScriptUrl) {
+        console.error('ERROR: GOOGLE_APPS_SCRIPT_URL environment variable is required');
+        process.exit(1);
+    }
+    
     app.listen(PORT, () => {
         console.log(`Proxy server running on port ${PORT}`);
         console.log(`Google Sheets proxy endpoint: http://localhost:${PORT}/api/google-sheets`);

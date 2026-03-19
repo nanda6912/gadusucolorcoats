@@ -57,10 +57,12 @@ function doPost(e) {
     const lock = LockService.getScriptLock();
     let timestamp; // Declare in outer scope
     try {
+      // Initialize timestamp before lock acquisition
+      timestamp = new Date();
+      
       lock.waitLock(30000); // Wait up to 30 seconds
       
       // Create accurate timestamp with proper timezone
-      timestamp = new Date();
       const formattedTimestamp = Utilities.formatDate(timestamp, Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
       
       // Append data to the sheet in the correct order
@@ -80,6 +82,15 @@ function doPost(e) {
       
       // Log the timestamp for debugging
       console.log('Data saved with timestamp:', formattedTimestamp);
+      
+    } catch (lockError) {
+      // Ensure timestamp is set even if lock fails
+      if (!timestamp) {
+        timestamp = new Date();
+      }
+      
+      console.error('Lock acquisition error:', lockError.toString());
+      throw lockError;
       
     } finally {
       lock.releaseLock();
