@@ -1,8 +1,7 @@
 // Google Apps Script with CORS Support for GADUSU Website
 // Copy this code to your Google Apps Script editor
 
-// Spreadsheet ID constant
-const SPREADSHEET_ID = '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4';
+// Current deployment URL: https://script.google.com/macros/s/AKfycbxhFVgbs3OGIXe7i8azO6tazWWdbpeCRHD1Z7lhz02n8YOpQGPsrYzK-KbW3rC2J44e/exec
 
 function doGet(e) {
   return ContentService.createTextOutput(JSON.stringify({
@@ -33,6 +32,7 @@ function doPost(e) {
     // Get spreadsheet with fallback
     let spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     if (!spreadsheet) {
+      const SPREADSHEET_ID = '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4';
       spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
     }
     
@@ -58,9 +58,13 @@ function doPost(e) {
     try {
       lock.waitLock(30000); // Wait up to 30 seconds
       
+      // Create accurate timestamp with proper timezone
+      const timestamp = new Date();
+      const formattedTimestamp = Utilities.formatDate(timestamp, Session.getScriptTimeZone(), "yyyy-MM-dd HH:mm:ss");
+      
       // Append data to the sheet in the correct order
       const range = sheet.appendRow([
-        timestamp.toISOString(),                    // Column A: Timestamp
+        formattedTimestamp,                       // Column A: Timestamp (formatted)
         data.name || '',                           // Column B: Full Name
         data.phone || '',                          // Column C: Phone Number
         data.email || '',                          // Column D: Email Address
@@ -73,8 +77,8 @@ function doPost(e) {
       // Get row number while lock is held (prevents race conditions)
       const capturedRowNumber = sheet.getLastRow();
       
-      // Format the timestamp column for better readability using captured row number
-      sheet.getRange(capturedRowNumber, 1).setNumberFormat('yyyy-mm-dd hh:mm:ss');
+      // Log the timestamp for debugging
+      console.log('Data saved with timestamp:', formattedTimestamp);
       
     } finally {
       lock.releaseLock();

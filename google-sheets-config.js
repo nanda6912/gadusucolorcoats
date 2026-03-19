@@ -6,8 +6,8 @@ const GOOGLE_SHEETS_CONFIG = {
     // Secure API key for proxy authentication
     PROXY_API_KEY: process.env.GOOGLE_SHEETS_PROXY_API_KEY || '',
     
-    // Original Google Apps Script URL (for reference)
-    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbwCzC8ifOgArKSB7yx2L0IfbdiN0qNf2YE3iyVnjf7RyY_OVaWfnqrLFU1_DfoENOnT/exec',
+    // Current Google Apps Script deployment URL
+    WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbxhFVgbs3OGIXe7i8azO6tazWWdbpeCRHD1Z7lhz02n8YOpQGPsrYzK-KbW3rC2J44e/exec',
     
     // Your Google Sheet ID (for reference)
     SPREADSHEET_ID: '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4',
