@@ -1,7 +1,10 @@
 // Google Sheets Configuration using Proxy Server
 const GOOGLE_SHEETS_CONFIG = {
-    // Use live Vercel proxy server for GitHub Pages
-    PROXY_URL: 'https://gadusuproxy.vercel.app/api/google-sheets',
+    // Use environment variable for proxy URL with fallback
+    PROXY_URL: process.env.GOOGLE_SHEETS_PROXY_URL || 'https://gadusuproxy.vercel.app/api/google-sheets',
+    
+    // Secure API key for proxy authentication
+    PROXY_API_KEY: process.env.GOOGLE_SHEETS_PROXY_API_KEY || '',
     
     // Original Google Apps Script URL (for reference)
     WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbwCzC8ifOgArKSB7yx2L0IfbdiN0qNf2YE3iyVnjf7RyY_OVaWfnqrLFU1_DfoENOnT/exec',
@@ -48,14 +51,28 @@ const GOOGLE_SHEETS_CONFIG = {
 // Function to append data to Google Sheets via Proxy Server
 async function appendToGoogleSheet(formData) {
     try {
-        console.log('Sending data to proxy server:', formData);
+        // Log safe metadata only (no PII)
+        console.log('Sending data to proxy server:', {
+            timestamp: new Date().toISOString(),
+            hasApiKey: !!GOOGLE_SHEETS_CONFIG.PROXY_API_KEY,
+            proxyUrl: GOOGLE_SHEETS_CONFIG.PROXY_URL
+        });
         
-        // Make the API request to proxy server
+        // Prepare headers with API key authentication
+        const headers = {
+            'Content-Type': 'application/json'
+        };
+        
+        // Add API key if configured
+        if (GOOGLE_SHEETS_CONFIG.PROXY_API_KEY) {
+            headers['Authorization'] = `Bearer ${GOOGLE_SHEETS_CONFIG.PROXY_API_KEY}`;
+            headers['X-API-Key'] = GOOGLE_SHEETS_CONFIG.PROXY_API_KEY;
+        }
+        
+        // Make the authenticated API request to proxy server
         const response = await fetch(GOOGLE_SHEETS_CONFIG.PROXY_URL, {
             method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
+            headers: headers,
             body: JSON.stringify(formData)
         });
         
@@ -68,7 +85,10 @@ async function appendToGoogleSheet(formData) {
         }
         
         const result = await response.text();
-        console.log('Data successfully sent via proxy:', result);
+        console.log('Data successfully sent via proxy:', {
+            success: true,
+            timestamp: new Date().toISOString()
+        });
         return { success: true, data: result };
         
     } catch (error) {
