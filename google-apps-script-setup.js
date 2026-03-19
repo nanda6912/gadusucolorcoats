@@ -12,6 +12,14 @@ function doGet(e) {
 
 function doPost(e) {
   try {
+    // Guard against undefined event parameter
+    if (!e) {
+      return ContentService.createTextOutput(JSON.stringify({
+        success: false,
+        error: "No event data received"
+      })).setMimeType(ContentService.MimeType.JSON);
+    }
+    
     // Enable CORS
     const output = ContentService.createTextOutput();
     output.setMimeType(ContentService.MimeType.JSON);
@@ -20,42 +28,36 @@ function doPost(e) {
     if (!e.postData || !e.postData.contents) {
       const errorResponse = {
         success: false,
-        error: "No data received"
+        error: "No post data received"
       };
       output.setContent(JSON.stringify(errorResponse));
       return output;
     }
     
-    // Parse the incoming data
     const data = JSON.parse(e.postData.contents);
     
-    // Get spreadsheet with fallback
-    let spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    if (!spreadsheet) {
-      const SPREADSHEET_ID = '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4';
-      spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
-    }
-    
+    // Try to get the active spreadsheet directly
+    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
     const sheet = spreadsheet.getSheetByName('Sheet1');
-    if (sheet === null) {
-      const errorResponse = {
+    
+    if (!sheet) {
+      return ContentService.createTextOutput(JSON.stringify({
         success: false,
-        error: "Sheet 'Sheet1' not found. Please create it first."
-      };
-      const errorOutput = ContentService.createTextOutput();
-      errorOutput.setMimeType(ContentService.MimeType.JSON);
-      errorOutput.setContent(JSON.stringify(errorResponse));
-      return errorOutput;
+        error: "Sheet 'Sheet1' not found"
+      })).setMimeType(ContentService.MimeType.JSON);
     }
     
-    // Ensure headers are set up
-    if (sheet.getRange('A1').getValue() !== 'Timestamp') {
-      setupHeadersOnSheet(sheet);
-    }
-    
-    // Use LockService to prevent race conditions
-    const lock = LockService.getScriptLock();
-    let timestamp; // Declare in outer scope
+    // Simple append without locks or formatting
+    sheet.appendRow([
+      new Date().toISOString(),
+      data.name || '',
+      data.phone || '',
+      data.email || '',
+      data.service || '',
+      data.location || '',
+      data.message || '',
+      data.date || ''
+    ]);
     try {
       // Initialize timestamp before lock acquisition
       timestamp = new Date();
