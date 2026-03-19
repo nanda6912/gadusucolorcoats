@@ -60,6 +60,20 @@ app.get('/', (req, res) => {
     });
 });
 
+// Handle all other routes for Vercel
+app.all('*', (req, res) => {
+    res.json({ 
+        message: 'GADUSU Proxy Server',
+        status: 'running',
+        endpoints: {
+            health: '/api/health',
+            googleSheets: '/api/google-sheets'
+        },
+        currentRoute: req.path,
+        method: req.method
+    });
+});
+
 // Start server
 app.listen(PORT, () => {
     console.log(`Proxy server running on port ${PORT}`);
