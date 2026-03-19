@@ -336,8 +336,8 @@ const exteriorImages = [
     'images/ext5.jpg', 'images/ext6.jpg'
 ];
 const commercialImages = [
-    'images/com1.jpg', 'images/com2.jpg', 'images/com3.jpg', 'images/com4.jpg',
-    'images/com5.jpg'
+    'images/commercial1.jpg', 'images/commercial2.jpg', 'images/commercial3.jpg', 'images/commercial4.jpg',
+    'images/commercial5.jpg'
 ];
 const allImages = [...interiorImages, ...exteriorImages, ...commercialImages];
 
