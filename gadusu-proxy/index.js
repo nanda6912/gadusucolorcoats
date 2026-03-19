@@ -12,13 +12,15 @@ const PORT = process.env.PORT || 3001;
 
 
 
-// Environment variable validation
+// Environment variable validation - required only
 
-const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL || 'https://script.google.com/macros/s/AKfycbxhFVgbs3OGIXe7i8azO6tazWWdbpeCRHD1Z7lhz02n8YOpQGPsrYzK-KbW3rC2J44e/exec';
+const googleAppsScriptUrl = process.env.GOOGLE_APPS_SCRIPT_URL;
+
+const isGoogleAppsScriptUrlFromEnv = !!process.env.GOOGLE_APPS_SCRIPT_URL;
 
 if (!googleAppsScriptUrl) {
 
-  console.error('ERROR: GOOGLE_APPS_SCRIPT_URL environment variable is not set');
+  console.error('ERROR: GOOGLE_APPS_SCRIPT_URL environment variable is required');
 
   process.exit(1);
 
@@ -89,79 +91,50 @@ app.post('/api/google-sheets', async (req, res) => {
         
 
         const response = await fetch(googleAppsScriptUrl, {
-
             method: 'POST',
-
             headers: {
-
                 'Content-Type': 'application/json',
-
             },
-
             body: JSON.stringify(req.body),
-
             signal: controller.signal
-
         });
-
         
-
         clearTimeout(timeoutId);
-
         const data = await response.text();
-
+        
+        // Forward upstream Content-Type
+        const contentType = response.headers.get('content-type');
+        if (contentType) {
+            res.set('Content-Type', contentType);
+        }
+        
         console.log('Google Apps Script response received:', {
-
             status: response.status,
-
             success: response.ok,
-
             timestamp: new Date().toISOString()
-
         });
-
         
-
         // Send response back to client
-
         res.status(response.status).send(data);
-
         
-
     } catch (error) {
-
+        clearTimeout(timeoutId);
         console.error('Proxy error:', {
-
             error: error.message,
-
             type: error.name,
-
             timestamp: new Date().toISOString()
-
         });
-
         
-
         if (error.name === 'AbortError') {
-
             res.status(408).json({
-
                 success: false,
-
                 error: "Request timeout"
-
             });
-
         } else {
-
             res.status(500).json({
-
                 success: false,
-
                 error: "Internal server error"
-
             });
-
         }
 
     }
@@ -199,17 +172,11 @@ app.all('*', (req, res) => {
 
 
 // Start server
-
 app.listen(PORT, () => {
-
     console.log(`Proxy server running on port ${PORT}`);
-
     console.log(`Google Sheets proxy endpoint: http://localhost:${PORT}/api/google-sheets`);
-
     console.log(`Health check endpoint: http://localhost:${PORT}/api/health`);
-
-    console.log(`Google Apps Script URL: ${googleAppsScriptUrl ? 'CONFIGURED' : 'NOT CONFIGURED'}`);
-
+    console.log(`Google Apps Script URL: ${isGoogleAppsScriptUrlFromEnv ? 'CONFIGURED (env)' : 'NOT CONFIGURED'}`);
 });
 
 

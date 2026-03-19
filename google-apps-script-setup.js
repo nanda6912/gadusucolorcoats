@@ -36,28 +36,29 @@ function doPost(e) {
     
     const data = JSON.parse(e.postData.contents);
     
-    // Try to get the active spreadsheet directly
-    const spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
-    const sheet = spreadsheet.getSheetByName('Sheet1');
+    // Get spreadsheet with fallback
+    let spreadsheet = SpreadsheetApp.getActiveSpreadsheet();
+    if (!spreadsheet) {
+      const SPREADSHEET_ID = '123A0waq7aujYr3xPI6jomxmGsBvZ_hPCx9sXfwCeYj4';
+      spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
+    }
     
-    if (!sheet) {
+    const sheet = spreadsheet.getSheetByName('Sheet1');
+    if (sheet === null) {
       return ContentService.createTextOutput(JSON.stringify({
         success: false,
-        error: "Sheet 'Sheet1' not found"
+        error: "Sheet 'Sheet1' not found. Please create it first."
       })).setMimeType(ContentService.MimeType.JSON);
     }
     
-    // Simple append without locks or formatting
-    sheet.appendRow([
-      new Date().toISOString(),
-      data.name || '',
-      data.phone || '',
-      data.email || '',
-      data.service || '',
-      data.location || '',
-      data.message || '',
-      data.date || ''
-    ]);
+    // Ensure headers are set up
+    if (sheet.getRange('A1').getValue() !== 'Timestamp') {
+      setupHeadersOnSheet(sheet);
+    }
+    
+    // Use LockService to prevent race conditions
+    const lock = LockService.getScriptLock();
+    let timestamp; // Declare in outer scope
     try {
       // Initialize timestamp before lock acquisition
       timestamp = new Date();
