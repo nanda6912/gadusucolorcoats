@@ -50,16 +50,26 @@ gadusu-website/
 ├── styles.css              # Complete responsive styling
 ├── script.js               # Interactive functionality
 ├── google-sheets-config.js # Google Sheets integration
-├── package.json            # Project configuration
 ├── package-lock.json        # Dependency lock file
 ├── images/                # Images directory
-│   ├── back.jpg           # Hero section background
-│   ├── int1.jpg           # Interior painting project 1
-│   ├── int2.jpg           # Interior painting project 2
-│   ├── int3.jpg           # Interior painting project 3
-│   ├── int4.jpg           # Interior painting project 4
-│   ├── int5.jpg           # Interior painting project 5
-│   └── int6.jpg           # Interior painting project 6
+│   ├── hero-bg.jpg        # Hero section background
+│   ├── interior-1.jpg     # Interior painting project 1
+│   ├── interior-2.jpg     # Interior painting project 2
+│   ├── interior-3.jpg     # Interior painting project 3
+│   ├── interior-4.jpg     # Interior painting project 4
+│   ├── interior-5.jpg     # Interior painting project 5
+│   ├── interior-6.jpg     # Interior painting project 6
+│   ├── exterior-1.jpg     # Exterior painting project 1
+│   ├── exterior-2.jpg     # Exterior painting project 2
+│   ├── exterior-3.jpg     # Exterior painting project 3
+│   ├── exterior-4.jpg     # Exterior painting project 4
+│   ├── exterior-5.jpg     # Exterior painting project 5
+│   ├── exterior-6.jpg     # Exterior painting project 6
+│   ├── commercial-1.jpg    # Commercial painting project 1
+│   ├── commercial-2.jpg    # Commercial painting project 2
+│   ├── commercial-3.jpg    # Commercial painting project 3
+│   ├── commercial-4.jpg    # Commercial painting project 4
+│   └── commercial-5.jpg    # Commercial painting project 5
 └── README.md              # This file
 ```
 
