@@ -53,13 +53,24 @@ gadusu-website/
 ├── package.json            # Project configuration
 ├── package-lock.json        # Dependency lock file
 ├── images/                # Images directory
-│   ├── back.jpg           # Hero section background
-│   ├── int1.jpg           # Interior painting project 1
-│   ├── int2.jpg           # Interior painting project 2
-│   ├── int3.jpg           # Interior painting project 3
-│   ├── int4.jpg           # Interior painting project 4
-│   ├── int5.jpg           # Interior painting project 5
-│   └── int6.jpg           # Interior painting project 6
+│   ├── hero-bg.jpg        # Hero section background
+│   ├── interior-1.jpg     # Interior painting project 1
+│   ├── interior-2.jpg     # Interior painting project 2
+│   ├── interior-3.jpg     # Interior painting project 3
+│   ├── interior-4.jpg     # Interior painting project 4
+│   ├── interior-5.jpg     # Interior painting project 5
+│   ├── interior-6.jpg     # Interior painting project 6
+│   ├── exterior-1.jpg     # Exterior painting project 1
+│   ├── exterior-2.jpg     # Exterior painting project 2
+│   ├── exterior-3.jpg     # Exterior painting project 3
+│   ├── exterior-4.jpg     # Exterior painting project 4
+│   ├── exterior-5.jpg     # Exterior painting project 5
+│   ├── exterior-6.jpg     # Exterior painting project 6
+│   ├── commercial-1.jpg    # Commercial painting project 1
+│   ├── commercial-2.jpg    # Commercial painting project 2
+│   ├── commercial-3.jpg    # Commercial painting project 3
+│   ├── commercial-4.jpg    # Commercial painting project 4
+│   └── commercial-5.jpg    # Commercial painting project 5
 └── README.md              # This file
 ```
 
@@ -206,9 +217,9 @@ The main color scheme uses:
 2. Update the `interiorImages` array in `script.js`:
 ```javascript
 const interiorImages = [
-    'images/int1.jpg', 'images/int2.jpg', 'images/int3.jpg',
-    'images/int4.jpg', 'images/int5.jpg', 'images/int6.jpg',
-    'images/int7.jpg', 'images/int8.jpg' // Add new images here
+    'images/interior-1.jpg', 'images/interior-2.jpg', 'images/interior-3.jpg',
+    'images/interior-4.jpg', 'images/interior-5.jpg', 'images/interior-6.jpg',
+    'images/interior-7.jpg', 'images/interior-8.jpg' // Add new images here
 ];
 ```
 
