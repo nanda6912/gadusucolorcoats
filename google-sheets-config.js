@@ -1,7 +1,7 @@
 // Google Sheets Configuration using Proxy Server
 const GOOGLE_SHEETS_CONFIG = {
-    // Use local proxy server to bypass CORS issues
-    PROXY_URL: 'http://localhost:3001/api/google-sheets',
+    // Use live Vercel proxy server for GitHub Pages
+    PROXY_URL: 'https://gadusuproxy.vercel.app/api/google-sheets',
     
     // Original Google Apps Script URL (for reference)
     WEB_APP_URL: 'https://script.google.com/macros/s/AKfycbwCzC8ifOgArKSB7yx2L0IfbdiN0qNf2YE3iyVnjf7RyY_OVaWfnqrLFU1_DfoENOnT/exec',
