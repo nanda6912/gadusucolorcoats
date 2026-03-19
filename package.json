@@ -1,15 +1,13 @@
 {
   "name": "gadusu-website",
   "version": "2.0.0",
-  "description": "GADUSU EXPERT COLOR COATS - Professional Painting Services Website with Google Sheets Integration",
+  "description": "GADUSU EXPERT COLOR COATS - Professional Painting Services Website",
   "main": "index.html",
   "scripts": {
     "start": "http-server -p 8000 -o",
     "dev": "http-server -p 8000 -o",
     "build": "echo 'No build process needed for static site'",
-    "serve": "http-server -p 8000",
-    "proxy": "node proxy-server.js",
-    "dev-full": "concurrently \"npm run proxy\" \"npm run start\""
+    "serve": "http-server -p 8000"
   },
   "keywords": [
     "painting",
@@ -17,17 +15,12 @@
     "website",
     "static",
     "responsive",
-    "google-sheets",
     "whatsapp"
   ],
   "author": "GADUSU EXPERT COLOR COATS",
   "license": "UNLICENSED",
   "devDependencies": {
-    "http-server": "^14.1.1",
-    "express": "^4.18.2",
-    "cors": "^2.8.5",
-    "node-fetch": "^2.6.7",
-    "concurrently": "^7.6.0"
+    "http-server": "^14.1.1"
   },
   "engines": {
     "node": ">=14.0.0"

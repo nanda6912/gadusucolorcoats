@@ -173,15 +173,6 @@ if (appointmentForm) {
             // Send appointment via WhatsApp
             await sendAppointmentWhatsApp(data);
             
-            // Sync to Google Sheets
-            const sheetsResult = await appendToGoogleSheet(data);
-            if (sheetsResult.success) {
-                console.log('Appointment data synced to Google Sheets');
-            } else {
-                console.warn('Google Sheets sync failed:', sheetsResult.error);
-                // Continue even if Google Sheets fails
-            }
-            
             // Show success message
             showMessage('Appointment request sent via WhatsApp! We will contact you soon.', 'success');
             
