@@ -42,9 +42,10 @@ gadusu-website/
 ├── .gitignore                    # Git ignore rules
 ├── .git/                         # Git repository
 └── images/                       # Images directory
-    ├── back.jpg                  # Hero background
-    ├── int1.jpg - int6.jpg       # Interior projects
-    └── [other project images]
+    ├── hero-bg.jpg               # Hero background
+    ├── interior-1.jpg - interior-6.jpg  # Interior projects
+    ├── exterior-1.jpg - exterior-6.jpg  # Exterior projects
+    └── commercial-1.jpg - commercial-5.jpg  # Commercial projects
 ```
 
 ## 🔄 Removed Files
